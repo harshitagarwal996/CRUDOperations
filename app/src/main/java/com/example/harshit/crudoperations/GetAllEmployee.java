@@ -15,6 +15,8 @@ public class GetAllEmployee extends AppCompatActivity {
         Log.d("Harshit","in GetAllEmployee onCreate");
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recycler_view_all_employee_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new EmployeeAdapter());
+        EmployeeAdapter employeeAdapter = new EmployeeAdapter();
+        recyclerView.setAdapter(employeeAdapter);
+        employeeAdapter.VolleyResultArray(this);
     }
 }

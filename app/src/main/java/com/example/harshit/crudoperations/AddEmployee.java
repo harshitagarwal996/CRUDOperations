@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,11 +52,16 @@ public class AddEmployee extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d("Harshit",response);
+                TextView textView=(TextView)findViewById(R.id.add_employee_result);
+                textView.setText(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Log.d("Harshit","some error occured");
+                TextView textView=(TextView)findViewById(R.id.add_employee_result);
+                textView.setText(error.toString());
             }
         });
         requestQueue.add(request);

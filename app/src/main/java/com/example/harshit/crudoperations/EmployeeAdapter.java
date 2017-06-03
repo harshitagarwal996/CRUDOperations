@@ -2,28 +2,27 @@ package com.example.harshit.crudoperations;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
 /**
  * Created by Harshit on 30-05-2017.
  */
+class Employee{
+    String name;
+    String designation;
+    String salary;
+}
 
-class EmployeeAdapter extends RecyclerView.Adapter<EmployeeViewHolder> {
-    public String responseString;
+public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder> {
+    List<Employee> employee;
+    EmployeeAdapter(List<Employee> employee){
+        this.employee=employee;
+    }
     @Override
     public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,43 +30,42 @@ class EmployeeAdapter extends RecyclerView.Adapter<EmployeeViewHolder> {
         return new EmployeeViewHolder(view);
     }
 
-    public void VolleyResultArray(Context context)
-    {
-        Log.d("Harshit","I am here");
-        RequestQueue requestQueue= Volley.newRequestQueue(context);
-        String url=Config.URL_GET_ALL;
-        StringRequest request=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                JSONObject object;
-                try {
-                    object=new JSONObject(response);
-                    JSONArray array = object.getJSONArray("result");
-                    Log.d("Harshit",array.toString());
-                } catch (JSONException e) {
-                    Log.d("Harshit","Error occured");
-
-                }
-
-                responseString=response;
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(request);
-    }
     @Override
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
-        String s="string value not found";
-        holder.employee.setText(s);
+        holder.employeeListName.setText(employee.get(position/2).name);//employee.get(position).name.toString());
+        holder.employeeListDesignation.setText(employee.get(position/2).designation);//employee.get(position).name.toString());
+        holder.employeeListSalary.setText(employee.get(position/2).salary.toString());//employee.get(position).name.toString());
 
+        holder.employeeListName2.setText(employee.get(position/2+1).name);//employee.get(position).name.toString());
+        holder.employeeListDesignation2.setText(employee.get(position/2+1).designation);//employee.get(position).name.toString());
+        holder.employeeListSalary2.setText(employee.get(position/2+1).salary.toString());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        if (employee != null) {
+            return employee.size();
+        }
+        return 0;
+    }
+
+
+    public static class EmployeeViewHolder extends RecyclerView.ViewHolder {
+        TextView employeeListName;
+        TextView employeeListName2;
+        TextView employeeListDesignation;
+        TextView employeeListDesignation2;
+        TextView employeeListSalary;
+        TextView employeeListSalary2;
+
+        public EmployeeViewHolder(View itemView) {
+            super(itemView);
+            employeeListName=(TextView)itemView.findViewById(R.id.list_employee_name);
+            employeeListName2=(TextView)itemView.findViewById(R.id.list_employee_name2);
+            employeeListDesignation=(TextView)itemView.findViewById(R.id.list_employee_designation);
+            employeeListDesignation2=(TextView)itemView.findViewById(R.id.list_employee_designation2);
+            employeeListSalary=(TextView)itemView.findViewById(R.id.list_employee_salary);
+            employeeListSalary2=(TextView)itemView.findViewById(R.id.list_employee_salary2);
+        }
     }
 }

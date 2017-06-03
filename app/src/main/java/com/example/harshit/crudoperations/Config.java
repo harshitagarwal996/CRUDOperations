@@ -1,7 +1,5 @@
 package com.example.harshit.crudoperations;
 
-import java.net.UnknownHostException;
-
 /**
  * Created by Harshit on 28-05-2017.
  */
@@ -20,6 +18,4 @@ public class Config {
     public static final String KEY_EMP_DESG = "desg";
     public static final String KEY_EMP_SAL = "salary";
 
-    public Config() throws UnknownHostException {
-    }
 }
